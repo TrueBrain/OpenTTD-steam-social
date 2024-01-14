@@ -1,0 +1,11 @@
+file(GLOB LIBRARIES "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/*.so")
+file(GLOB MAIN_LIBRARY "${CPACK_TEMPORARY_INSTALL_DIRECTORY}/*${CPACK_PACKAGE_NAME}*")
+
+get_filename_component(MAIN_LIBRARY_NAME "${MAIN_LIBRARY}" NAME)
+
+message(STATUS "Creating signature file ${MAIN_LIBRARY_NAME}.sig")
+
+execute_process(
+    COMMAND python3 "@CMAKE_SOURCE_DIR@/cmake/create_signature_file.py" "${LIBRARIES}"
+    OUTPUT_FILE "${MAIN_LIBRARY}.sig"
+)
