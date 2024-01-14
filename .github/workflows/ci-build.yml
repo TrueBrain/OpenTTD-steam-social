@@ -55,7 +55,9 @@ jobs:
         cd build
 
         echo "::group::CMake"
-        cmake .. ${{ matrix.extra-cmake-parameters }}
+        cmake .. \
+          ${{ matrix.extra-cmake-parameters }} \
+          # EOF
         echo "::endgroup::"
 
         echo "::group::Build"
@@ -77,7 +79,7 @@ jobs:
 
     runs-on: macos-latest
     env:
-      MACOSX_DEPLOYMENT_TARGET: 10.13
+      MACOSX_DEPLOYMENT_TARGET: 10.15
 
     steps:
     - name: Checkout

@@ -12,9 +12,9 @@ jobs:
   macos:
     name: MacOS
 
-    runs-on: macos-12
+    runs-on: macos-latest
     env:
-      MACOSX_DEPLOYMENT_TARGET: 10.13
+      MACOSX_DEPLOYMENT_TARGET: 10.15
 
     steps:
     - name: Download source
@@ -34,6 +34,10 @@ jobs:
 
     - name: Install dependencies
       run: |
+        echo "::group::Install python dependencies"
+        python3 -m pip install cryptography
+        echo "::endgroup::"
+
         echo "::group::Install breakpad dependencies"
         cargo install dump_syms
         echo "::endgroup::"
@@ -125,6 +129,8 @@ jobs:
         echo "::group::Run CPack"
         cpack
         echo "::endgroup::"
+      env:
+        OPENTTD_PLUGIN_PRIVATE_KEY: ${{ secrets.OPENTTD_PLUGIN_PRIVATE_KEY }}
 
     - name: Notarize
       env:

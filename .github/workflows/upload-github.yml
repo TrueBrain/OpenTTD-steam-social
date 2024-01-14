@@ -38,7 +38,13 @@ jobs:
         name: steam-social-macos-universal
         path: steam-social-macos-universal
 
-    - name: Download bundle (Linux)
+    - name: Download bundle (Linux, Legacy)
+      uses: actions/download-artifact@v3
+      with:
+        name: steam-social-linux-legacy
+        path: steam-social-linux-legacy
+
+    - name: Download bundle (Linux, Generic)
       uses: actions/download-artifact@v3
       with:
         name: steam-social-linux-generic
